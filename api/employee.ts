@@ -4,7 +4,11 @@ import axiosInstance from "./axiosInstance";
 
 export async function getEmployees() {
   const URL = BASE_API + endpoints.list;
-  const res = await axiosInstance.get(URL);
+  const res = await axiosInstance.get(URL, {
+    headers: {
+      next: JSON.stringify({ tags: ["employees"] }),
+    },
+  });
   if (res.status === 200) {
     return res.data;
   } else {

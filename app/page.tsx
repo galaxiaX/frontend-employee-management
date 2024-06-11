@@ -8,7 +8,8 @@ export default async function Home() {
   let employeeList: IEmployeeDetails[] = [];
 
   try {
-    const res: IEmployeeDetails[] = await getEmployees();
+    const res = await getEmployees();
+
     if (res?.length > 0) {
       employeeList = res;
     }
