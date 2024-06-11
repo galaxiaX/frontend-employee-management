@@ -1,21 +1,29 @@
+"use client";
+
 import { getEmployees } from "@/api/employee";
 import EmployeeTable from "@/components/employee-table/employee-table";
 import { IEmployeeDetails } from "@/types/employee";
 
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
-export default async function Home() {
-  let employeeList: IEmployeeDetails[] = [];
+export default function Home() {
+  const [employeeList, setEmployeeList] = useState<IEmployeeDetails[]>([]);
 
-  try {
-    const res = await getEmployees();
-
-    if (res?.length > 0) {
-      employeeList = res;
+  const fetchEmployees = async () => {
+    try {
+      const res: IEmployeeDetails[] = await getEmployees();
+      if (res?.length > 0) {
+        setEmployeeList(res);
+      }
+    } catch (error) {
+      console.error("Failed to get employees:", error);
     }
-  } catch (error) {
-    console.error("Failed to get employees:", error);
-  }
+  };
+
+  useEffect(() => {
+    fetchEmployees();
+  }, []);
 
   return (
     <main className="flex min-h-[100dvh] flex-col items-center gap-12 p-8 sm:p-12 md:p-16 bg-gray-200">
