@@ -32,7 +32,6 @@ const EmployeeTableToolbar = ({ filters, onFilters, dataFiltered }: Props) => {
 
   const handleFilterBirthDate = useCallback(
     (event: SelectChangeEvent) => {
-      console.log("event.target.value : ", event.target.value);
       onFilters("birthMonth", event.target.value);
     },
     [onFilters]
